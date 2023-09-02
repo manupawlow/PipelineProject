@@ -1,52 +1,109 @@
-# Prerequisites
-*.d
+# Carpeta de salida de compilación
+bin/
+obj/
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Carpeta de archivos temporales
+[Tt]emp/
+[Oo]bj/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Archivos generados por Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
 
-# Precompiled Headers
-*.gch
-*.pch
+# Archivos generados por Rider
+.idea/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Archivos generados por Visual Studio Code
+.vscode/
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Paquetes NuGet
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# Carpeta de caché de ReSharper
+_ReSharper*/
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Carpeta de caché de Visual Studio
+ipch/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Archivos de configuración local
+*.suo
+*.user
+*.sln.docstates
+*.userprefs
+
+# Archivos de respaldo de Visual Studio
+[Bb]ackup/
+
+# Visual Studio 2019 a 2022 archivos de la configuración de la carpeta .vsconfig
+.vsconfig/
+
+# Carpeta de caché de Roslyn
+*.ide/
+
+# Carpeta de caché de Visual Studio Code
+.vscode/
+
+# Carpeta de caché de Rider
+.idea/
+
+# Carpeta de caché de Visual Studio
+.vs2019/
+.vs2017/
+.vs2015/
+
+# Carpeta de caché de Rider
+.idea/
+
+# Carpeta de caché de MonoDevelop
+.idea/
+*.suo
+
+# Archivos generados por Rider
+.idea/
+
+# Carpeta de caché de SharpDevelop
+bin/
+
+# Archivos generados por MonoDevelop
+.idea/
+*.userprefs
+*.suo
+
+# Rider
+.idea/
+
+# Rider
+.idea/
+.idea/
+
+# Visual Studio 2019 a 2022 archivos de la configuración de la carpeta .vsconfig
+.vsconfig/
+.vscode/
+
+# Carpeta de caché de Visual Studio Code
+.vscode/
+
+# Carpeta de caché de MonoDevelop
+.idea/
+*.userprefs
+*.suo
+
+# Carpeta de caché de SharpDevelop
+bin/
+
+# Archivos generados por Rider
+.idea/
+
+# Carpeta de caché de SharpDevelop
+bin/
