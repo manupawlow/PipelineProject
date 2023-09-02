@@ -1,29 +1,39 @@
-name: Dotnet Format and Commit
+name: Build and Test
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
-  format-and-commit:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '3.1' # Puedes ajustar esto a la versión de .NET que estés utilizando
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
 
-      - name: Install dotnet-format tool
-        run: dotnet tool install -g dotnet-format
+    - name: Restore dependencies
+      run: dotnet restore TestingProject.sln
 
-      - name: Run dotnet format
-        run: |
-          dotnet format --check
+    - name: Build
+      run: dotnet build TestingProject.sln --configuration Release
 
-      - name: Commit changes (if needed)
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git diff --exit-code || git commit -am "Fix code formatting issues" && git push
+    - name: Run tests
+      run: dotnet test TestingProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: testresults.trx
