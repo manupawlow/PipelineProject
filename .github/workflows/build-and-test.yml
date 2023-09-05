@@ -27,10 +27,10 @@ jobs:
       run: dotnet restore TestingProject.sln
 
     - name: Build
-      run: dotnet build TestingProject.sln --configuration Release
+      run: dotnet build TestProject.sln --configuration Release
 
     - name: Run tests
-      run: dotnet test TestingProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
+      run: dotnet test TestProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
