@@ -22,20 +22,13 @@ jobs:
         working-directory: ./TestProject
         run: |
           dotnet format --verbosity normal
-
-      - name: View branches
-        working-directory: ./TestProject
+  
+      - name: Check for formatting changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git branch
-
-      - name: Verificar cambios de formato
-        id: format-changes
-        run: |
-          git config --global user.name "Tu Nombre"
-          git config --global user.email "tu@email.com"
-          git diff --exit-code || (git add . && git commit -m "Ajustes de formato" && echo "::set-output name=format_changed::true")
-
-      - name: Subir cambios al PR
-        if: steps.format-changes.outputs.format_changed == 'true'
-        run: git push origin ${{ github.ref }}
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          branch_name=$GITHUB_HEAD_REF
+          git diff --exit-code || git commit -am "Fix code formatting issues" && git push origin $branch_name
         
