@@ -28,9 +28,9 @@ jobs:
         run: |
           git branch
 
-      - name: Check for formatting changes
+      - name: Verificar cambios de formato
+        id: format-changes
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          branch_name=$GITHUB_HEAD_REF
-          git diff --exit-code || git commit -am "Fix code formatting issues" && git push origin $branch_name
+          git config --global user.name "Tu Nombre"
+          git config --global user.email "tu@email.com"
+          git diff --exit-code || (git add . && git commit -m "Ajustes de formato" && echo "::set-output name=format_changed::true")
