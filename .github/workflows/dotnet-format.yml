@@ -23,6 +23,11 @@ jobs:
         run: |
           dotnet format --verbosity normal
 
+      - name: View branches
+        working-directory: ./TestProject
+        run: |
+          git branch
+
       - name: Check for formatting changes
         run: |
           git config user.name "GitHub Actions"
