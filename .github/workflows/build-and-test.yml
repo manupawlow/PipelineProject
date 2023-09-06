@@ -35,8 +35,23 @@ jobs:
       working-directory: ./TestProject
       run: dotnet test TestProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
 
-    - name: Code Coverage Summary
-      uses: irongut/CodeCoverageSummary@v1.3.0
+    - name: Coverlet coverage test
+      # You may pin to the exact commit or the version.
+      # uses: b3b00/coverlet-action@77a2bb02e31fac9d12a64709c94a41266cebec6c
+      uses: b3b00/coverlet-action@1.2.5
+      with:
+        # output filename
+        #output: # default is ./lcov.info
+        # output format : lcov, json, opencover, cobertura, teamcity (see coverlet documentation)
+        #outputFormat: # default is lcov
+        # assemblies, namespaces, exclusions (see coverlet documentation)
+        #excludes: # optional
+        # path to unit test project from repository root
+        testProject: ./TestProject/TestProject.Test
+        # threshold below which tests fail.
+        #threshold: # optional
+        # if true, produces extra debugging output. Default is false.
+        #debug: # optional
 
     - name: Upload test results
       uses: actions/upload-artifact@v2
