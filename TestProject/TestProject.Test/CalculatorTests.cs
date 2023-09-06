@@ -5,8 +5,7 @@ namespace TestProject.Test
         private readonly Calculator _sut = new();
 
         [Fact]
-        public void Add_Should_ReturnSum()
-        {
+        public void Add_Should_ReturnSum() {
             var result = _sut.Add(1, 1);
             Assert.Equal(2, result);
         }
@@ -21,7 +20,7 @@ namespace TestProject.Test
         [Fact]
         public void Divide_Should_ReturnDivision2()
         {
-            var result = _sut.Divide(0, 1);
+            var result = _sut.Divide(0, 2);
             Assert.Equal(0, result);
         }
     }
