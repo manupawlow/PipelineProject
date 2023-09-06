@@ -1,6 +1,10 @@
 name: Dotnet Format
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
 
 jobs:
   format-and-commit:
@@ -22,11 +26,6 @@ jobs:
         working-directory: ./TestProject
         run: |
           dotnet format --verbosity normal
-
-      - name: Branch
-        working-directory: ./TestProject
-        run: |
-          git branch
           
       - name: Check for formatting changes
         env:
@@ -35,5 +34,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           branch_name=$GITHUB_HEAD_REF
-          git diff --exit-code || gh pr checkout ${{ github.event.pull_request.number }} && git commit -am "Fix code formatting issues" && git push
+          git diff --exit-code || gh pr checkout ${{ github.event.pull_request.number }} && git commit -am "[Auto-commit] Fix code formatting issues" && git push
         
