@@ -24,11 +24,12 @@ jobs:
       - name: Run dotnet format
         working-directory: ./TestProject
         run: |
-          dotnet format --verbosity normal
+          dotnet format --verify-no-changes
           if [ $? -eq 0 ]; then
             echo "No formatting issues found."
           else
             echo "Formatting issues found. Committing changes..."
+            dotnet format --verbosity normal
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
             branch_name=$GITHUB_HEAD_REF
