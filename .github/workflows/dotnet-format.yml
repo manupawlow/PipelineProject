@@ -28,4 +28,5 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git diff --exit-code || git commit -am "Fix code formatting issues" && git push
+          branch_name=$GITHUB_HEAD_REF
+          git diff --exit-code || git commit -am "Fix code formatting issues" && git push origin $branch_name
