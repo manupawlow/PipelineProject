@@ -10,7 +10,7 @@ namespace TestProject.Test
             var result = _sut.Add(1, 1);
             Assert.Equal(2, result);
         }
-         
+          
         [Fact]
         public void Divide_Should_ReturnDivision()
         {
