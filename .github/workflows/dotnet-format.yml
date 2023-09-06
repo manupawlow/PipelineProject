@@ -18,15 +18,21 @@ jobs:
       - name: Install dotnet-format tool
         run: dotnet tool install -g dotnet-format
 
+      - name: Debug GITHUB_HEAD_REF
+        run: echo "GITHUB_HEAD_REF is $GITHUB_HEAD_REF"
+
       - name: Run dotnet format
         working-directory: ./TestProject
         run: |
           dotnet format --verbosity normal
-
-      - name: Commit changes (if needed)
-        working-directory: ./TestProject
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          branch_name=$GITHUB_HEAD_REF
-          git diff --exit-code || git commit -am "Fix code formatting issues" && git push origin $branch_name
+          if [ $? -eq 0 ]; then
+            echo "No formatting issues found."
+          else
+            echo "Formatting issues found. Committing changes..."
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            branch_name=$GITHUB_HEAD_REF
+            git add .
+            git commit -m "Fix code formatting issues"
+            git push origin $branch_name
+          fi
