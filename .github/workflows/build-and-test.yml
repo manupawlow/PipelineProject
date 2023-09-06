@@ -24,7 +24,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore dependencies
-      run: dotnet restore TestingProject.sln
+      run: dotnet restore TestProject.sln
 
     - name: Build
       run: dotnet build TestProject.sln --configuration Release
