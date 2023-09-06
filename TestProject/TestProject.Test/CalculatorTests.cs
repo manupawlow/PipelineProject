@@ -4,7 +4,7 @@ namespace TestProject.Test
     {
         private readonly Calculator _sut = new();
 
-        [Fact] 
+        [Fact]
         public void Add_Should_ReturnSum()
         {
             var result = _sut.Add(1, 1);
