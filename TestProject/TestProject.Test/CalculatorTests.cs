@@ -14,7 +14,7 @@ namespace TestProject.Test
         public void Divide_Should_ReturnDivision()
         {
             var result = _sut.Divide(1, 1);
-            Assert.Equal(1, result);  
+            Assert.Equal(1, result);    
         }
     }
 }
