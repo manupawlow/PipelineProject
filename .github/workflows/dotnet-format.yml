@@ -22,7 +22,12 @@ jobs:
         working-directory: ./TestProject
         run: |
           dotnet format --verbosity normal
-  
+
+      - name: Branch
+        working-directory: ./TestProject
+        run: |
+          git branch
+          
       - name: Check for formatting changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
