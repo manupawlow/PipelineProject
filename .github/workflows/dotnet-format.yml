@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          path: 'TestProject/' # Especifica el directorio donde deseas hacer el checkout
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
@@ -21,13 +19,13 @@ jobs:
         run: dotnet tool install -g dotnet-format
 
       - name: Run dotnet format
+        working-directory: ./TestProject
         run: |
-          cd TestProject/
           dotnet format --verbosity normal
 
       - name: Commit changes (if needed)
+        working-directory: ./TestProject
         run: |
-          cd TestProject/
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git diff --exit-code || git commit -am "Fix code formatting issues" && git push
