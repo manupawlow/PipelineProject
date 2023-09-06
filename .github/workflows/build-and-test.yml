@@ -24,12 +24,15 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore dependencies
+      working-directory: ./TestProject
       run: dotnet restore TestProject.sln
 
     - name: Build
+      working-directory: ./TestProject
       run: dotnet build TestProject.sln --configuration Release
 
     - name: Run tests
+      working-directory: ./TestProject
       run: dotnet test TestProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
 
     - name: Upload test results
