@@ -2,7 +2,7 @@ namespace TestProject.Test
 {
     public class CalculatorTests
     {
-        private readonly Calculator _sut;
+        private readonly Calculator _sut = new();
 
         [Fact]
         public void Add_Should_ReturnSum()
