@@ -34,3 +34,8 @@ jobs:
           git config --global user.name "Tu Nombre"
           git config --global user.email "tu@email.com"
           git diff --exit-code || (git add . && git commit -m "Ajustes de formato" && echo "::set-output name=format_changed::true")
+
+      - name: Subir cambios al PR
+        if: steps.format-changes.outputs.format_changed == 'true'
+        run: git push origin ${{ github.ref }}
+        
