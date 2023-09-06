@@ -35,6 +35,9 @@ jobs:
       working-directory: ./TestProject
       run: dotnet test TestProject.sln --configuration Release --logger "trx;LogFileName=testresults.trx"
 
+    - name: Code Coverage Summary
+      uses: irongut/CodeCoverageSummary@v1.3.0
+
     - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
