@@ -11,9 +11,8 @@ namespace TestProject.Test
             Assert.Equal(2, result);
         }
           
-        [Fact]   
-        public void Divide_Should_ReturnDivision()
-        {
+        [Fact]    
+        public void Divide_Should_ReturnDivision() {
             var result = _sut.Divide(1, 1);
             Assert.Equal(1, result);
         }
