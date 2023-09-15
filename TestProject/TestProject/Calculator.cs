@@ -1,11 +1,18 @@
-﻿namespace TestProject
+using System.Linq;
+
+namespace TestProject
 {
     public class Calculator
     {
-        public int Add(int a, int b)
-        {
+        public int Add(int a, int b) {
+            var unused = 1;
             return a + b;
         }
+
+        //public int Add2(int a, int b) {
+        //    var unused = 1;
+        //    return a + b;
+        //}
 
         public int Divide(int a, int b)
         {
