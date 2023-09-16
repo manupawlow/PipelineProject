@@ -7,6 +7,25 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        language: ['csharp']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
+      with:
+        languages: ${{ matrix.language }
+          
   source-branch:
     runs-on: ubuntu-latest
     steps:
