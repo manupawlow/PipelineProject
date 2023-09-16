@@ -46,6 +46,7 @@ jobs:
         
   code-coverage:
     runs-on: ubuntu-latest
+    needs: build-and-test
     steps:
       - name: Download coverage report
         uses: actions/download-artifact@v3
