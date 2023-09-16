@@ -9,11 +9,6 @@ namespace TestProject
             return a + b + 1;
         }
 
-        //public int Add2(int a, int b) {
-        //    var unused = 1;
-        //    return a + b;
-        //}
-
         public int Divide(int a, int b)
         {
             return a / b;
