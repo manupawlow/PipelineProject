@@ -9,13 +9,17 @@ on:
 jobs:
   worflow:
     runs-on: ubuntu-latest
-
+    
+    defaults:
+      run:
+        working-directory: TestProject
+    
     env:
-      WORKING_DIRECTORY: TestProject
       SOLUTION_NAME: TestProject.sln
     
     steps:
     - name: Verify source branch
+      working-directory: ${{ github.workspace }}
       run: |
         SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
         if [ "$SOURCE_BRANCH" != "feature" ] && [ "$SOURCE_BRANCH" != "hotfix" ]; then
@@ -32,19 +36,15 @@ jobs:
         dotnet-version: 6.0.x
     
     - name: Restore dependencies
-      working-directory: $WORKING_DIRECTORY
       run: dotnet restore $SOLUTION_NAME
 
     - name: Build
-      working-directory: $WORKING_DIRECTORY
       run: dotnet build $SOLUTION_NAME --configuration Release --warnaserror
 
     - name: Run tests
-      working-directory: $WORKING_DIRECTORY
       run: dotnet test $SOLUTION_NAME --configuration Release
 
     - name: Dotnet format
-      working-directory: $WORKING_DIRECTORY
       run: |
         dotnet tool install -g dotnet-format
         dotnet format --verify-no-changes || echo "[!] You have format errors. Execute "dotnet format" and commit again" && exit 1
