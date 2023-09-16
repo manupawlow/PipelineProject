@@ -7,7 +7,19 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:
-  CI:
+  source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify source branch
+        run: |
+          ALLOWED_BRANCHES=("feature" "hotfix" "fix")
+          SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
+          if [[ ! " ${ALLOWED_BRANCHES[@]} " =~ " $SOURCE_BRANCH " ]]; then
+            echo "Error: Source branch must have one of the allowed prefixes: ${ALLOWED_BRANCHES[*]}"
+            exit 1
+          fi
+  build-and-test:
+    needs: source-branch
     runs-on: ubuntu-latest
     
     defaults:
@@ -18,16 +30,6 @@ jobs:
       SOLUTION_NAME: TestProject.sln
     
     steps:
-    - name: Verify source branch
-      working-directory: ${{ github.workspace }}
-      run: |
-        ALLOWED_BRANCHES=("feature" "hotfix")
-        SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
-        if [[ ! " ${ALLOWED_BRANCHES[@]} " =~ " $SOURCE_BRANCH " ]]; then
-          echo "Error: Source branch must have one of the allowed prefixes: ${ALLOWED_BRANCHES[*]}"
-          exit 1
-        fi
-
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -45,6 +47,10 @@ jobs:
     - name: Run tests
       run: dotnet test $SOLUTION_NAME --configuration Release
 
+  format:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
     - name: Dotnet format
       run: |
         dotnet tool install -g dotnet-format
