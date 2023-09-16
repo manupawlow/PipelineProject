@@ -6,7 +6,6 @@ namespace TestProject
     {
         public int Add(int a, int b)
         {
-            var unused = 1;
             return a + b;
         }
 
