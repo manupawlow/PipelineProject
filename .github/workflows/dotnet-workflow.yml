@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      solution_path: ./TestProject/TestProject.sln
+      SOLUTION_PATH: ./TestProject/TestProject.sln
     
     steps:
 
@@ -31,15 +31,18 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name: Echo
+      run: echo $env:SOLUTION_PATH
+    
     - name: Restore dependencies
-      run: dotnet restore $env:solution_path
+      run: dotnet restore $env:SOLUTION_PATH
 
     - name: Build
       working-directory: ./TestProject
-      run: dotnet build $env:solution_path --configuration Release --warnaserror
+      run: dotnet build $env:SOLUTION_PATH --configuration Release --warnaserror
 
     - name: Run tests
-      run: dotnet test $env:solution_path --configuration Release
+      run: dotnet test $env:SOLUTION_PATH --configuration Release
 
     - name: Dotnet format
       run: |
