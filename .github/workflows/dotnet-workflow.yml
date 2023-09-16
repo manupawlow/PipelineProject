@@ -31,12 +31,9 @@ jobs:
       run:
         working-directory: TestProject
     
-    env:
-      SOLUTION_NAME: TestProject.sln
-    
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
@@ -44,23 +41,16 @@ jobs:
         dotnet-version: 6.0.x
     
     - name: Restore dependencies
-      run: dotnet restore $SOLUTION_NAME
+      run: dotnet restore
 
     - name: Build
-      run: dotnet build $SOLUTION_NAME --configuration Release --warnaserror
+      run: dotnet build --configuration Release --warnaserror
 
     - name: Run tests
-      run: dotnet test $SOLUTION_NAME --configuration Release
+      run: dotnet test --configuration Release
     
-    # Add coverlet.collector nuget package to test project - 'dotnet add <TestProject.cspoj> package coverlet
     - name: Test
       run: dotnet test --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
-
-    - name: LS
-      run: |
-        ls
-        cd coverage
-        ls
       
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.3.0
@@ -78,7 +68,9 @@ jobs:
         path: code-coverage-results.md
 
     - name: Write to Job Summary
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+      run: |
+        cat "Hola" >> $GITHUB_STEP_SUMMARY
+        cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
     
   format:
     needs: build-and-test
