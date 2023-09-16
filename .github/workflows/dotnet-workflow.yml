@@ -38,11 +38,7 @@ jobs:
       run: dotnet restore $SOLUTION_PATH
 
     - name: Build
-      working-directory: ./TestProject
-      run: | 
-        echo $SOLUTION_PATH
-        echo "dotnet build $SOLUTION_PATH --configuration Release --warnaserror"
-        dotnet build $SOLUTION_PATH --configuration Release --warnaserror
+      run: dotnet build $SOLUTION_PATH --configuration Release --warnaserror
 
     - name: Run tests
       run: dotnet test $SOLUTION_PATH --configuration Release
