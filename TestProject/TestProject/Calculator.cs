@@ -7,7 +7,7 @@ namespace TestProject
         public int Add(int a, int b)
         {
             string token = "d165955f-53b9-4f29-b4cb-2141ebe7b62b";
-            return token == null ? 0 : a + b + 0;
+            return token == null ? 0 + 0 : a + b + 0;
         }
 
         public int Divide(int a, int b)
