@@ -1,4 +1,4 @@
-name: .NET CI Workflow
+name: .NET
 
 on:
   push:
@@ -7,19 +7,7 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:
-  job1:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Verify source branch
-      working-directory: ${{ github.workspace }}
-      run: |
-        SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
-        if [ "$SOURCE_BRANCH" != "feature" ] && [ "$SOURCE_BRANCH" != "hotfix" ]; then
-          echo "Error: Source branch must have 'feature/' or 'hotfix/' prefix."
-          exit 1
-        fi
-        
-  worflow:
+  CI:
     runs-on: ubuntu-latest
     
     defaults:
@@ -33,9 +21,10 @@ jobs:
     - name: Verify source branch
       working-directory: ${{ github.workspace }}
       run: |
+        ALLOWED_BRANCHES=("feature" "hotfix")
         SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
-        if [ "$SOURCE_BRANCH" != "feature" ] && [ "$SOURCE_BRANCH" != "hotfix" ]; then
-          echo "Error: Source branch must have 'feature/' or 'hotfix/' prefix."
+        if [[ ! " ${ALLOWED_BRANCHES[@]} " =~ " $SOURCE_BRANCH " ]]; then
+          echo "Error: Source branch must have one of the allowed prefixes: ${ALLOWED_BRANCHES[*]}"
           exit 1
         fi
 
