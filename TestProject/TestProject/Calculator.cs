@@ -6,7 +6,7 @@ namespace TestProject
     {
         public int Add(int a, int b)
         {
-            return a + b;
+            return a + b + 0;
         }
 
         public int Divide(int a, int b)
