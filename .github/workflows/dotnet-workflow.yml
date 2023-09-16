@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./TestProject
+        working-directory: TestProject
 
     env:
       SOLUTION_NAME: TestProject.sln
