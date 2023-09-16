@@ -1,3 +1,8 @@
+# TODOs:
+# - add security analyze
+# - add code coverage
+# - add dependency vulnerabilities
+
 name: .NET
 
 on:
@@ -6,22 +11,7 @@ on:
   pull_request:
     branches: [ "master", "develop" ]
 
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-    
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
-      with:
-        languages: 'csharp'
-          
+jobs:          
   source-branch:
     runs-on: ubuntu-latest
     steps:
@@ -64,7 +54,7 @@ jobs:
     
     # Add coverlet.collector nuget package to test project - 'dotnet add <TestProject.cspoj> package coverlet
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
+      run: dotnet test --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
 
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.3.0
