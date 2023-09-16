@@ -1,9 +1,4 @@
-# TODOs:
-# - add security analyze
-# - add code coverage
-# - add dependency vulnerabilities
-
-name: .NET
+name: CI
 
 on:
   push:
@@ -12,19 +7,7 @@ on:
     branches: [ "master", "develop" ]
 
 jobs:          
-  source-branch:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verify source branch
-        run: |
-          ALLOWED_BRANCHES=("feature" "hotfix" "fix")
-          SOURCE_BRANCH=$(echo "${{ github.event.pull_request.head.ref }}" | awk -F'/' '{print $1}')
-          if [[ ! " ${ALLOWED_BRANCHES[@]} " =~ " $SOURCE_BRANCH " ]]; then
-            echo "Error: Source branch must have one of the allowed prefixes: ${ALLOWED_BRANCHES[*]}"
-            exit 1
-          fi
   build-and-test:
-    needs: source-branch
     runs-on: ubuntu-latest
     
     defaults:
@@ -55,7 +38,9 @@ jobs:
         filename: 'TestProject/coverage/*/coverage.cobertura.xml'
         badge: true
         format: 'markdown'
+        fail_below_min: true
         output: 'both'
+        thresholds: '80 95'
 
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
@@ -63,14 +48,6 @@ jobs:
       with:
         recreate: true
         path: code-coverage-results.md
-    
-    - name: Echo coverage
-      run: |
-        ACTUAL_COVERAGE=$(awk -F ' ' '/Overall coverage/ {print substr($4, 1, length($4)-1)}' code-coverage-results.md)
-        echo $ACTUAL_COVERAGE
-
-    - name: Write to Job Summary
-      run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
     
   format:
     needs: build-and-test
